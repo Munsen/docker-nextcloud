@@ -1,0 +1,13 @@
+version: '3'
+
+volumes:
+  nextcloud:
+  nextcloud_data:
+
+services:
+  app:
+    build: ./
+    ports:
+      - 8080:80
+    links:
+      - db
