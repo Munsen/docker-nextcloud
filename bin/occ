@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+exec docker-compose -f /opt/nextcloud//docker-compose.yml exec -u www-data nextcloud php occ $*
+

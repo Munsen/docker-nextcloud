@@ -5,9 +5,14 @@ volumes:
   nextcloud_data:
 
 services:
-  app:
-    build: ./
+  nextcloud:
+    build: ./nextcloud
+    image: munsen/nextcloud:stable
     ports:
-      - 8080:80
-    links:
-      - db
+      - "8080:80"
+    restart: always
+    container_name: nextcloud
+    network_mode: bridge
+    volumes:
+      - /mnt/md0/nextcloud:/var/www/html 
+      - /mnt/md0/transmission:/mnt/transmission
