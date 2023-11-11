@@ -14,5 +14,8 @@ services:
     container_name: nextcloud
     network_mode: bridge
     volumes:
-      - /mnt/md0/nextcloud:/var/www/html 
-      - /mnt/md0/transmission:/mnt/transmission
+      - html:/var/www/html
+      - /mnt/storage/nextcloud/data:/var/www/html/data
+      - /mnt/storage/transmission:/mnt/transmission
+volumes:
+   html:

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+compose_file=$(realpath $(dirname $0)/..)/docker-compose.yml
+
+docker-compose -f ${compose_file} build --pull 
+docker-compose -f ${compose_file} down 
+docker-compose -f ${compose_file} up -d
