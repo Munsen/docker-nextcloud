@@ -3,6 +3,7 @@ ARG VERSION=stable
 FROM arm64v8/nextcloud:${VERSION}-apache
 
 COPY config/* /usr/src/nextcloud/config/
+COPY php/conf.d/* /usr/local/etc/php/conf.d/
 
 ENV NEXTCLOUD_UPDATE=1
 ENV PHP_MEMORY_LIMIT=1G
