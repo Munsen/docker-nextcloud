@@ -1,9 +1,5 @@
 version: '3'
 
-volumes:
-  nextcloud:
-  nextcloud_data:
-
 services:
   nextcloud:
     build: ./nextcloud
