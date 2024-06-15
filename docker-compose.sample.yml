@@ -1,17 +1,64 @@
-version: '3'
-
 services:
-  nextcloud:
+  app:
+    image: app
     build: ./nextcloud
-    image: munsen/nextcloud:stable
-    ports:
-      - "8080:80"
     restart: always
-    container_name: nextcloud
-    network_mode: bridge
+    container_name: app
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    depends_on:
+      - redis
+
     volumes:
-      - html:/var/www/html
-      - /mnt/storage/nextcloud/data:/var/www/html/data
-      - /mnt/storage/transmission:/mnt/transmission
+      - html:/var/www/html:z
+      # - /mnt/storage/nextcloud/data:/var/www/html/data
+      # - /mnt/storage/transmission:/mnt/transmission
+    environment:
+      - POSTGRES_HOST=host.docker.internal
+      - REDIS_HOST=redis
+      - PHP_MEMORY_LIMIT=1G
+      - PHP_UPLOAD_LIMIT=16G
+      - NEXTCLOUD_UPDATE=1
+
+  cron:
+    image: app
+    build: ./nextcloud
+    container_name: cron
+    restart: always
+    volumes:
+      - html:/var/www/html:z
+      # - /mnt/storage/nextcloud/data:/var/www/html/data
+      # - /mnt/storage/transmission:/mnt/transmission
+    entrypoint: /cron.sh
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    depends_on:
+      - redis
+      - app
+
+  web:
+    image: web
+    build: ./web
+    container_name: web
+    volumes:
+      - html:/var/www/html:z
+    environment:
+      - FPM_HOST=app:9000
+    ports:
+      - 8080:80
+
+  redis:
+    image: redis:7
+    restart: always
+    container_name: redis
+
 volumes:
    html:
+
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: nextcloud
+

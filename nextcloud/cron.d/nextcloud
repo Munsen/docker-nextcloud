@@ -1,3 +1,0 @@
-PATH=/sbin:/usr/bin:/usr/local/bin
-
-*/5 * * * * www-data php -f /var/www/html/cron.php
