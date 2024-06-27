@@ -18,6 +18,7 @@ services:
       - REDIS_HOST=redis
       - PHP_MEMORY_LIMIT=1G
       - PHP_UPLOAD_LIMIT=16G
+      - PHP_UPLOAD_TMP_DIR=/var/www/html/data/tmp
       - NEXTCLOUD_UPDATE=1
 
   cron:
