@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
-exec docker-compose -f /opt/nextcloud//docker-compose.yml exec -T -u www-data nextcloud php occ $*
+compose_file=$(realpath $(dirname $0)/..)/docker-compose.yml
+
+exec docker-compose -f ${compose_file}  exec -T -u www-data app php occ $*
 
