@@ -5,4 +5,4 @@ compose_file=$(realpath $(dirname $0)/..)/docker-compose.yml
 docker-compose -f ${compose_file} build --pull 
 docker-compose -f ${compose_file} down 
 docker-compose -f ${compose_file} up -d
-docker rmi $(docker -q -f dangling=true)
+docker rmi $(docker images -q -f dangling=true)
