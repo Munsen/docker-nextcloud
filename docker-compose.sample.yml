@@ -20,6 +20,8 @@ services:
       - PHP_UPLOAD_LIMIT=16G
       - PHP_UPLOAD_TMP_DIR=/var/www/html/data/tmp
       - NEXTCLOUD_UPDATE=1
+    ports:
+      - 9000:9000
 
   cron:
     image: app
